@@ -1,0 +1,8 @@
+.itemList {
+  width: 300px;
+  outline: 1px solid grey;
+}
+.red {
+  color: red;
+  text-decoration: line-through;
+}

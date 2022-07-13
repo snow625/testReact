@@ -1,41 +1,43 @@
-import { Component } from "react";
+import { useState, useCallback } from "react";
 import FormBuy from "./FormBuy";
 import ItemsList from "./ItemsList";
 import { nanoid } from "nanoid";
 
 import s from "./byList.module.css";
-class ByList extends Component {
-  state = {
-    items: [],
-  };
+const ByList = () => {
+  const [items, setItems] = useState([]);
 
-  toggleBought = (idx) => {
-    console.log(idx);
-    this.setState((prevState) => {
-      const newItems = prevState.items.map((el) => ({ ...el }));
-      newItems[idx].bought = !newItems[idx].bought;
-      return {
-        items: newItems,
-      };
-    });
-  };
+  
+  
+  const toggleBought = useCallback(
+    (idx) => {
+      setItems((prevState) => {
+        const newItems = prevState.map((el) => ({ ...el }));
+        newItems[idx].bought = !newItems[idx].bought;
+        return [...newItems];
+      });
+    },
+    [setItems]
+  );
 
-  addItem = (obj) => {
-    const newObj = { ...obj, id: nanoid(), bought: false };
-    this.setState((prevState) => {
-      return { items: [...prevState.items, newObj] };
-    });
-  };
 
-  render() {
-    const { items } = this.state;
-    return (
-      <div className={s.container}>
-        <FormBuy onSubmit={this.addItem} />
-        <ItemsList items={items} onClick={this.toggleBought} />
-      </div>
-    );
-  }
-}
+
+  const addItem = useCallback(
+    (obj) => {
+      const newObj = { ...obj, id: nanoid(), bought: false };
+      setItems((prevState) => {
+        return [...prevState, newObj];
+      });
+    },
+    [setItems]
+  );
+
+  return (
+    <div className={s.container}>
+      <FormBuy onSubmit={addItem} />
+      <ItemsList items={items} onClick={toggleBought} />
+    </div>
+  );
+};
 
 export default ByList;

@@ -1,16 +1,17 @@
 import s from "./itemsList.module.css";
+import Item from "./Item";
 const ItemsList = (props) => {
   const { items, onClick } = props;
   const elements = items.map((el, indx) => {
     const { id, name, bought } = el;
     return (
-      <li
-        className={bought ? s.red : ""}
-        onClick={() => onClick(indx)}
+      <Item
         key={id}
-      >
-        {name}
-      </li>
+        bought={bought}
+        name={name}
+        onClick={onClick}
+        index={indx}
+      />
     );
   });
   const totalItems = items.reduce((acc, el) => {
@@ -19,6 +20,7 @@ const ItemsList = (props) => {
   const totalPrice = items.reduce((acc, el) => {
     return el.bought ? acc : acc + el.quantity * el.price;
   }, 0);
+  console.log("рендер ItemList");
   return (
     <div className={s.itemList}>
       <p>Total items: {totalItems} </p>

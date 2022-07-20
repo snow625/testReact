@@ -1,0 +1,42 @@
+.header {
+    border-bottom: 1px dotted rebeccapurple;
+    padding: 10px;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0 15px;
+}
+.wrapper {
+    width: 80%;
+}
+.list{
+    display: grid;
+    grid-template-columns: 3fr 0.5fr 0.5fr;
+
+    align-items: baseline;
+
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.link {
+    text-decoration: dotted;
+    color: black;
+}
+
+.isActive {
+    composes: link;
+    color: red;
+}
+.logo > .link{
+    text-decoration: none;
+    text-align: start;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 900;
+    font-size: 30px;
+
+    color: rebeccapurple;
+}
